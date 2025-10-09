@@ -5,9 +5,9 @@ namespace StateMachine
     {
         protected StateController stateControler;
         [SerializeField] private Transition[] possibleTransitions;
-        public bool IsDone => isDone;
+        public bool IsDone => _isDone;
 
-        private bool isDone = false;
+        private bool _isDone = false;
 
         public abstract void OnEnter();
         public abstract void UpdateState();

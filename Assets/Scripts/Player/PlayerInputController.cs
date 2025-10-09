@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController : MonoBehaviour // handles inputs
 {
-    private InputSystem_Actions actions;
-    private bool isInputBlocked = false;
+    private InputSystem_Actions _actions;
+    private bool _isInputBlocked = false;
 
 
     public Vector2 MoveInput { get; private set; }
@@ -19,26 +19,26 @@ public class PlayerInputController : MonoBehaviour
 
     private void Awake()
     {
-        actions = new InputSystem_Actions();
+        _actions = new InputSystem_Actions();
 
-        actions.Player.Move.performed += OnMovePerformed;
-        actions.Player.Move.canceled -= OnMovePerformed;
+        _actions.Player.Move.performed += OnMovePerformed;
+        _actions.Player.Move.canceled -= OnMovePerformed;
 
-        actions.Player.Jump.performed += OnJumpPermormed;
-        actions.Player.Jump.canceled += OnJumpCanceled;
+        _actions.Player.Jump.performed += OnJumpPermormed;
+        _actions.Player.Jump.canceled += OnJumpCanceled;
 
-        actions.Player.Dash.performed += ctx => DashPressed = true;
-        actions.Player.Dash.canceled += ctx => DashPressed = false;
+        _actions.Player.Dash.performed += ctx => DashPressed = true;
+        _actions.Player.Dash.canceled += ctx => DashPressed = false;
     }
 
     private void OnEnable()
     {
-        actions.Enable();
+        _actions.Enable();
     }
 
     private void OnDisable()
     {
-        actions.Disable();
+        _actions.Disable();
     }
 
     private void Update()

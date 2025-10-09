@@ -4,9 +4,9 @@ namespace StateMachine
     public class StateController : MonoBehaviour
     {
         [SerializeField] private State firstState;
-        public State CurrentState => currentState;
+        public State CurrentState => _currentState;
 
-        private State currentState;
+        private State _currentState;
 
         private void Start()
         {
@@ -15,8 +15,8 @@ namespace StateMachine
 
         private void FixedUpdate()
         {
-            currentState.UpdateState();
-            State newState = currentState.CheckTransitions();
+            _currentState.UpdateState();
+            State newState = _currentState.CheckTransitions();
 
             if(newState != null) ChangeState(newState);
                
@@ -24,14 +24,14 @@ namespace StateMachine
 
         private void ChangeState(State newState)
         {
-            if(currentState != null)
+            if(_currentState != null)
             {
-                currentState.OnExit();
-                Destroy(currentState);
+                _currentState.OnExit();
+                Destroy(_currentState);
             }
-            currentState = Instantiate(newState);
-            currentState.setStateController(this);
-            currentState.OnEnter();
+            _currentState = Instantiate(newState);
+            _currentState.setStateController(this);
+            _currentState.OnEnter();
         }
     }
 }
