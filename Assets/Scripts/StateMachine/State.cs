@@ -10,6 +10,7 @@ namespace StateMachine
         private bool _isDone = false;
 
         public abstract void OnEnter();
+        public abstract void FixedUpdateState();
         public abstract void UpdateState();
         public abstract void OnExit();
         public abstract void FinishState();

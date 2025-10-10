@@ -15,11 +15,16 @@ namespace StateMachine
 
         private void FixedUpdate()
         {
-            _currentState.UpdateState();
+            _currentState.FixedUpdateState();
             State newState = _currentState.CheckTransitions();
 
             if(newState != null) ChangeState(newState);
                
+        }
+
+        private void Update()
+        {
+            _currentState.UpdateState();
         }
 
         private void ChangeState(State newState)

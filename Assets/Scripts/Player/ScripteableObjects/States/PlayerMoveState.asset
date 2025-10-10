@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63224ade707d27943b72f37d6545905b, type: 3}
+  m_Name: PlayerMoveState
+  m_EditorClassIdentifier: 
+  possibleTransitions:
+  - deciosionToBeMade: {fileID: 11400000, guid: c15e0593be8d5114d9d0ae7c3942f4cc, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: ade19b8338604154a881722f9f275083, type: 2}
+    onDecisionFalseExitState: {fileID: 0}
+  - deciosionToBeMade: {fileID: 11400000, guid: b1a737e6870ab3e4d927dc167c6b91fb, type: 2}
+    onDecisionTrueExitState: {fileID: 0}
+    onDecisionFalseExitState: {fileID: 11400000, guid: f21bef56763066645bfe8c7ebbe89ab0, type: 2}
+  BlockControlEntryThreshold: 0
+  BlockControlExitThreshold: 0

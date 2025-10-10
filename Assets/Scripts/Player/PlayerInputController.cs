@@ -49,6 +49,7 @@ public class PlayerInputController : MonoBehaviour // handles inputs
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
         MoveInput = context.ReadValue<Vector2>();
+        Debug.Log(MoveInput);
     }
 
     private void OnJumpPermormed(InputAction.CallbackContext context)
@@ -57,11 +58,17 @@ public class PlayerInputController : MonoBehaviour // handles inputs
         JumpHold = true;
         jumpStartTime = Time.time;
         JumpHoldTime = 0f;
+        Debug.Log("JumpPressed");
     }
 
     private void OnJumpCanceled(InputAction.CallbackContext context)
     {
         JumpHold = false;
         JumpHoldTime = 0f;
+    }
+
+    public void ConsumeJumpPressed() // ensure that the player needs to press jump again
+    {
+        JumpPressed = false;
     }
 }

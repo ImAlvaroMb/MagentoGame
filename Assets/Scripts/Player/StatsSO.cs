@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Stats/PlayertStats")]
 public class StatsSO : ScriptableObject
 {
     [Header("LAYERS")]
