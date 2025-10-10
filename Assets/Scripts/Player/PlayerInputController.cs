@@ -22,7 +22,7 @@ public class PlayerInputController : MonoBehaviour // handles inputs
         _actions = new InputSystem_Actions();
 
         _actions.Player.Move.performed += OnMovePerformed;
-        _actions.Player.Move.canceled -= OnMovePerformed;
+        _actions.Player.Move.canceled += OnMovePerformed;
 
         _actions.Player.Jump.performed += OnJumpPermormed;
         _actions.Player.Jump.canceled += OnJumpCanceled;
