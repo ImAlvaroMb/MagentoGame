@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour // handles most status checks from the player
 {
-    [HideInInspector] public StatsSO PlayerStats;
+    [HideInInspector] public StatsSO PlayerStats => playerStats;
     [SerializeField] private StatsSO playerStats;
 
     private Rigidbody2D _rb;

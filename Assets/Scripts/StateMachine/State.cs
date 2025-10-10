@@ -3,7 +3,7 @@ namespace StateMachine
 {
     public abstract class State : ScriptableObject
     {
-        protected StateController stateControler;
+        protected StateController stateController;
         [SerializeField] private Transition[] possibleTransitions;
         public bool IsDone => _isDone;
 
@@ -17,15 +17,15 @@ namespace StateMachine
 
         public void setStateController(StateController stateController)
         {
-            this.stateControler = stateController;
+            this.stateController = stateController;
         }
 
         public State CheckTransitions()
         {
             State exitState = null;
-            for (int i = 0; i < possibleTransitions.Length && exitState != null; i++)
+            for (int i = 0; i < possibleTransitions.Length && exitState == null; i++)
             {
-                exitState = possibleTransitions[i].getExitState(stateControler);
+                exitState = possibleTransitions[i].getExitState(stateController);
             }
 
             return exitState;

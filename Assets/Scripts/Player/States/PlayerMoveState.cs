@@ -4,7 +4,6 @@ namespace StateMachine
     [CreateAssetMenu(menuName = "States/Player/PlayerMove")]
     public class PlayerMoveState : PlayerBaseState
     {
-        protected MovementBehaviour movementBehaviour;
         public override void OnEnter()
         {
             base.OnEnter();
@@ -13,23 +12,24 @@ namespace StateMachine
         public override void FinishState()
         {
             
+
         }
 
         public override void FixedUpdateState()
         {
             movementBehaviour.HandleDirection(
-                moveX: inputController.MoveInput.x,
-                maxSpeed: playerStats.MaxSpeed,
-                acceleration: playerStats.Acceleration,
-                groundDeceleration: playerStats.GroundDeceleration,
-                airDeceleration: playerStats.AirDeceleration
+                inputController.MoveInput.x,
+                playerStats.MaxSpeed,
+                playerStats.Acceleration,
+                playerStats.GroundDeceleration,
+                playerStats.AirDeceleration
                 );
 
             movementBehaviour.HandleGravity(
-                fallAcceleration: playerStats.FallAcceleration,
-                maxFallSpeed: playerStats.MaxFallSpeed,
-                groundingForce: playerStats.GroundingForce,
-                jumpEndEarlyGravityModifier: playerStats.JumpEndEarlyGravityModifier
+                playerStats.FallAcceleration,
+                playerStats.MaxFallSpeed,
+                playerStats.GroundingForce,
+                playerStats.JumpEndEarlyGravityModifier
                 );
         }
 
