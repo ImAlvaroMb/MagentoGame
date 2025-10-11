@@ -52,7 +52,8 @@ public class MovementBehaviour : MonoBehaviour
     {
         if(Grounded && _frameVelocity.y <= 0)
         {
-            _frameVelocity.y = groundingForce;
+            //_frameVelocity.y = groundingForce;
+            _frameVelocity.y = 0f;
         } else
         {
             var inAirGravity = fallAcceleration;

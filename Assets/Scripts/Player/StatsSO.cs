@@ -36,6 +36,9 @@ public class StatsSO : ScriptableObject
     [Tooltip("The detection distance for grounding and roof detection"), Range(0f, 0.5f)]
     public float GrounderDistance = 0.05f;
 
+    [Tooltip("Threshold value to determine whether we are falling or not"), Range(0f, 5f)]
+    public float FallingSpeedThreshold = 2f;
+
     [Header("JUMP")]
     [Tooltip("The immediate velocity applied when jumping")]
     public float JumpPower = 36;

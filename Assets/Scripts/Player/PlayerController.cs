@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour // handles most status checks from
 
         bool groundHit = Physics2D.CapsuleCast(_collider.bounds.center, _collider.size, _collider.direction, 0, Vector2.down, playerStats.GrounderDistance, ~playerStats.PlayerLayer); // excludes player layer
         bool ceilingHit = Physics2D.CapsuleCast(_collider.bounds.center, _collider.size, _collider.direction, 0, Vector2.up, playerStats.GrounderDistance, ~playerStats.PlayerLayer);
+        Debug.DrawLine(_collider.bounds.center, new Vector2(_collider.bounds.center.x , _collider.bounds.center.y) + Vector2.down * playerStats.GrounderDistance, Color.red);
 
         if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
 
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour // handles most status checks from
 
     private void CheckIfFalling()
     {
-        if(_rb.linearVelocityY < 0.2f)
+        if(_rb.linearVelocity.y < -playerStats.FallingSpeedThreshold)
         {
             _isFalling = true;
         } else
