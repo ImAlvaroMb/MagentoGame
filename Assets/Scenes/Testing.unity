@@ -170,7 +170,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 18a289d56bf6ad4449f8c982fcf1fe26, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc21e40d41c32b469187f6935913b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 11400000, guid: fc79742d51a268743b5ab3be93ef93f0, type: 2}
+  playerStats: {fileID: 11400000, guid: e2ec45d4d81731f4ca211a8fc3cbc7c6, type: 2}
 --- !u!114 &527690936
 MonoBehaviour:
   m_ObjectHideFlags: 0
