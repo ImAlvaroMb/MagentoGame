@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a08996c670ac49b46846d2a4d11e45f8, type: 3}
-  m_Name: PlayerStats
+  m_Name: PlayerStatsMod
   m_EditorClassIdentifier: 
   PlayerLayer:
     serializedVersion: 2
@@ -23,7 +23,7 @@ MonoBehaviour:
   GroundDeceleration: 60
   AirDeceleration: 30
   GroundingForce: -1.5
-  GrounderDistance: 0.07
+  GrounderDistance: 0.05
   JumpPower: 36
   MaxFallSpeed: 40
   FallAcceleration: 110

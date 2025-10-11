@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour // handles most status checks from
 
     public bool IsGrounded => _isGrounded;
     private bool _isGrounded = false;
+
+    public bool IsFalling => _isFalling;
+    private bool _isFalling = false;
     
     private bool _coyoteUsable;
     private bool _bufferedJumpUsable;
@@ -40,14 +43,15 @@ public class PlayerController : MonoBehaviour // handles most status checks from
     private void FixedUpdate()
     {
         CheckCollisions();
+        CheckIfFalling();
     }
 
     private void CheckCollisions()
     {
         Physics2D.queriesStartInColliders = false;
 
-        bool groundHit = Physics2D.CapsuleCast(_collider.bounds.center, _collider.size, _collider.direction, 0, Vector2.down, playerStats.GrounderDistance); // future might need a layer check
-        bool ceilingHit = Physics2D.CapsuleCast(_collider.bounds.center, _collider.size, _collider.direction, 0, Vector2.up, playerStats.GrounderDistance);
+        bool groundHit = Physics2D.CapsuleCast(_collider.bounds.center, _collider.size, _collider.direction, 0, Vector2.down, playerStats.GrounderDistance, ~playerStats.PlayerLayer); // excludes player layer
+        bool ceilingHit = Physics2D.CapsuleCast(_collider.bounds.center, _collider.size, _collider.direction, 0, Vector2.up, playerStats.GrounderDistance, ~playerStats.PlayerLayer);
 
         if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
 
@@ -67,5 +71,16 @@ public class PlayerController : MonoBehaviour // handles most status checks from
 
 
         Debug.Log(_isGrounded);
+    }
+
+    private void CheckIfFalling()
+    {
+        if(_rb.linearVelocityY < 0.2f)
+        {
+            _isFalling = true;
+        } else
+        {
+            _isFalling = false;
+        }
     }
 }
