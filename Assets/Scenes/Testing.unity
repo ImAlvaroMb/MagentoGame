@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317837153}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 2}
   m_ConstrainProportionsScale: 0
@@ -244,6 +244,7 @@ GameObject:
   - component: {fileID: 527690933}
   - component: {fileID: 527690932}
   - component: {fileID: 527690939}
+  - component: {fileID: 527690940}
   m_Layer: 6
   m_Name: PlayerTest
   m_TagString: Untagged
@@ -384,6 +385,20 @@ MonoBehaviour:
   Grounded: 0
   EndedJumpEarly: 0
   TimeLeftGrounded: -3.4028235e+38
+--- !u!114 &527690940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527690931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d2e668f06427845b6614e3bf3175e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 317837155}
+  playerObj: {fileID: 317837153}
 --- !u!1 &1243608096
 GameObject:
   m_ObjectHideFlags: 0

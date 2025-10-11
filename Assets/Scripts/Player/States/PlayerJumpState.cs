@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 namespace StateMachine
@@ -11,6 +12,8 @@ namespace StateMachine
         public override void OnEnter()
         {
             base.OnEnter();
+            animatorController.NotifyBoolAnimationChange(PlayerAnimations.JUMPING, true);
+            animatorController.NotifyBoolAnimationChange(PlayerAnimations.MOVING, false);
             _timeJumpWasPressed = playerController.CurrentTime;
 
             movementBehaviour.ExecuteJump(playerStats.JumpPower);
@@ -20,6 +23,7 @@ namespace StateMachine
         public override void OnExit()
         {
             base.OnExit();
+            animatorController.NotifyBoolAnimationChange(PlayerAnimations.JUMPING, false);
         }
 
         public override void FixedUpdateState()

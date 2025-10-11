@@ -1,14 +1,16 @@
 using UnityEngine;
-
+using Enums;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour // handles most status checks from the player
 {
     [HideInInspector] public StatsSO PlayerStats => playerStats;
     [SerializeField] private StatsSO playerStats;
 
+    public Rigidbody2D Rb => _rb;
     private Rigidbody2D _rb;
     private CapsuleCollider2D _collider;
     private MovementBehaviour _movementBehaviour;
+    private PlayerAnimatorController _playerAnimatorController;
     private Vector2 _frameVelocity;
 
     public bool IsGrounded => _isGrounded;
@@ -31,13 +33,14 @@ public class PlayerController : MonoBehaviour // handles most status checks from
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CapsuleCollider2D>();
         _movementBehaviour = GetComponent<MovementBehaviour>();
-
+        _playerAnimatorController = GetComponent<PlayerAnimatorController>();
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders; // cache initial global value
     }
 
     private void Update()
     {
-        _time = Time.time;   
+        _time = Time.time;
+        CheckIfMoving();
     }
 
     private void FixedUpdate()
@@ -82,6 +85,17 @@ public class PlayerController : MonoBehaviour // handles most status checks from
         } else
         {
             _isFalling = false;
+        }
+    }
+
+    private void CheckIfMoving()
+    {
+        if(Mathf.Abs(_rb.linearVelocity.x) > 0.1f)
+        {
+            _playerAnimatorController.NotifyBoolAnimationChange(PlayerAnimations.MOVING, true);
+        } else
+        {
+            _playerAnimatorController.NotifyBoolAnimationChange(PlayerAnimations.MOVING, false);
         }
     }
 }

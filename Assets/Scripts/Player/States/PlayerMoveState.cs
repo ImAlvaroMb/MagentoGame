@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 namespace StateMachine
 {
@@ -7,6 +8,13 @@ namespace StateMachine
         public override void OnEnter()
         {
             base.OnEnter();
+            animatorController.NotifyBoolAnimationChange(PlayerAnimations.MOVING, true);
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            
         }
 
         public override void FinishState()
