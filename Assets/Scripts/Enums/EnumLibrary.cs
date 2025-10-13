@@ -7,5 +7,11 @@ namespace Enums
         JUMPING,
         FALLING
     }
+
+    public enum TimerDirection
+    {
+        INCREASE,
+        DECREASE
+    }
 }
 
