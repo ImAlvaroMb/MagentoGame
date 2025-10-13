@@ -72,9 +72,6 @@ public class PlayerController : MonoBehaviour // handles most status checks from
 
         _movementBehaviour.Grounded = _isGrounded;
         Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
-
-
-        Debug.Log(_isGrounded);
     }
 
     private void CheckIfFalling()

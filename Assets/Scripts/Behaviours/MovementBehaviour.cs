@@ -85,8 +85,15 @@ public class MovementBehaviour : MonoBehaviour
             _canDash = false;
             _isDashing = true;
             float direction = 0f;
-            if (moveX != 0f) direction = Mathf.Sign(moveX);
-            else direction = Mathf.Sign(originalDirection);
+            Debug.Log(moveX + " " +originalDirection);
+            if (moveX != 0f)
+            {
+                direction = Mathf.Sign(moveX);
+            }
+            else
+            {
+                direction = Mathf.Sign(originalDirection);
+            }
 
             TimerSystem.Instance.CreateTimer(_playerController.PlayerStats.DashDuration, onTimerDecreaseComplete: () =>
             {

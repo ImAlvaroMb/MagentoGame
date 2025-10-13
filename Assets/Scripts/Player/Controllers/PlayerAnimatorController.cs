@@ -27,4 +27,9 @@ public class PlayerAnimatorController : MonoBehaviour
     {
         animatorController.SetBool(typeToNotify.ToString(), value);
     }
+
+    public float GetPlayerRotation()
+    {
+        return playerObj.transform.rotation.y;
+    }
 }
