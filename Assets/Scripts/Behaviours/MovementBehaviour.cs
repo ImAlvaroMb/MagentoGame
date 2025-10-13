@@ -67,6 +67,11 @@ public class MovementBehaviour : MonoBehaviour
         }
     }
 
+    public void HandleDash(float moveX, float originalDirection, float dashSpeed, float maxDashSpeed) 
+    {
+
+    }
+
     private void ApplyMovement()
     {
         _rb.linearVelocity = _frameVelocity;
