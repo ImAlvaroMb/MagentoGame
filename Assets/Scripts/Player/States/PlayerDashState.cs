@@ -2,11 +2,13 @@ using UnityEngine;
 
 namespace StateMachine
 {
+    [CreateAssetMenu(menuName = "States/Player/PlayerDashing")]
     public class PlayerDashState : PlayerBaseState
     {
         public override void OnEnter()
         {
             base.OnEnter();
+            movementBehaviour.HandleDash(inputController.MoveInput.x, 0.1f, playerStats.DashAcceleration, playerStats.MaxDashSpeed);
         }
 
         public override void OnExit()

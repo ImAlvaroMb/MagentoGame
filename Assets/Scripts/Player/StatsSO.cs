@@ -65,4 +65,6 @@ public class StatsSO : ScriptableObject
     public float MaxDashSpeed = 50f;
 
     public float DashCooldown = .25f;
+
+    public float DashAcceleration = 150f;
 }
