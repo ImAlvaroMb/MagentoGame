@@ -2,12 +2,13 @@ using UnityEngine;
 using Utilities;
 using Enums;
 
-public class MovementBehaviour : MonoBehaviour
+public class MovementBehaviour : MonoBehaviour, IPausable
 {
     private PlayerController _playerController;
 
     private Rigidbody2D _rb;
     private Vector2 _frameVelocity;
+    private bool _isPaused = false;
 
     [HideInInspector] public bool Grounded = false;
     [HideInInspector] public bool EndedJumpEarly = false;
@@ -18,15 +19,26 @@ public class MovementBehaviour : MonoBehaviour
     public bool IsDashing => _isDashing;
     private bool _isDashing = false;
 
+    public void OnPause()
+    {
+        _isPaused = true;
+    }
+
+    public void OnResume()
+    {
+        _isPaused = false;
+    }
 
     private void Awake()
     {
+        PauseManager.Instance.RegistedPausable(this);
         _rb = GetComponent<Rigidbody2D>();
         _playerController = GetComponent<PlayerController>();
     }
 
     private void FixedUpdate()
     {
+        if (_isPaused) return;
         ApplyMovement();
     }
 
@@ -112,4 +124,6 @@ public class MovementBehaviour : MonoBehaviour
     {
         _rb.linearVelocity = _frameVelocity;
     }
+
+    
 }

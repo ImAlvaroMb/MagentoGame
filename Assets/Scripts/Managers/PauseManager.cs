@@ -5,18 +5,13 @@ using Utilities;
 
 public class PauseManager : AbstractSingleton<PauseManager>
 {
-    private List<IPausable> pausableElements = new List<IPausable>();
+    private List<IPausable> _pausableElements = new List<IPausable>();
 
-    public InputAction pauseKey;
+    public GameObject pauseTestingScreem;
 
     private bool _isGamePaused = false;
 
-    private void Start()
-    {
-        pauseKey.performed += HandlePausePressed;
-    }
-
-    private void HandlePausePressed(InputAction.CallbackContext ctx)
+    public void HandlePausePressed(InputAction.CallbackContext ctx)
     {
         if (_isGamePaused)
         {
@@ -33,8 +28,9 @@ public class PauseManager : AbstractSingleton<PauseManager>
         if (_isGamePaused) return;
 
         _isGamePaused = true;
+        pauseTestingScreem.SetActive(true);
 
-        foreach (IPausable element in pausableElements)
+        foreach (IPausable element in _pausableElements)
         {
             element?.OnPause();
         }
@@ -45,10 +41,32 @@ public class PauseManager : AbstractSingleton<PauseManager>
         if (!_isGamePaused) return;
 
         _isGamePaused = false;
+        pauseTestingScreem.SetActive(false);
 
-        foreach (IPausable element in pausableElements)
+        foreach (IPausable element in _pausableElements)
         {
             element?.OnResume();
         }
+    }
+
+    public void RegistedPausable(IPausable pausable)
+    {
+        if (pausable == null)
+        {
+            Debug.LogError("Tried to register null pausable"); 
+            return;
+        }
+        if (!_pausableElements.Contains(pausable)) _pausableElements.Add(pausable);
+    }
+
+    public void UnregistedPausable(IPausable pausable)
+    {
+        if(pausable == null)
+        {
+            Debug.LogError("Tried to unregisted a null pausable");
+            return;
+        }
+
+        _pausableElements.Remove(pausable);
     }
 }

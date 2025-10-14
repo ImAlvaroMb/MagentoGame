@@ -29,6 +29,8 @@ public class PlayerInputController : MonoBehaviour // handles inputs
 
         _actions.Player.Dash.performed += ctx => DashPressed = true;
         _actions.Player.Dash.canceled += ctx => DashPressed = false;
+
+        _actions.Player.Pause.performed += PauseManager.Instance.HandlePausePressed;
     }
 
     private void OnEnable()
