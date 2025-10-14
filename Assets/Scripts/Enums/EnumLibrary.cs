@@ -13,5 +13,12 @@ namespace Enums
         INCREASE,
         DECREASE
     }
+
+    public enum InputDeviceType
+    {
+        KEYBOARD_MOUSE,
+        PS_CONTROLLER,
+        XBOX_CONTROLLER
+    }
 }
 

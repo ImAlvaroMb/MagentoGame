@@ -1,11 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Enums;
 
 public class PlayerInputController : MonoBehaviour // handles inputs
 {
+
+    private InputDeviceType _currentInputDeviceType = InputDeviceType.KEYBOARD_MOUSE;
+    public InputSystem_Actions Actions => _actions;
     private InputSystem_Actions _actions;
     private bool _isInputBlocked = false;
 
+    public bool IsUsingController => _isUsingController;
+    private bool _isUsingController = false;
 
     public Vector2 MoveInput { get; private set; }
 
@@ -20,6 +26,7 @@ public class PlayerInputController : MonoBehaviour // handles inputs
     private void Awake()
     {
         _actions = new InputSystem_Actions();
+        _actions.Enable();
 
         _actions.Player.Move.performed += OnMovePerformed;
         _actions.Player.Move.canceled += OnMovePerformed;
@@ -72,5 +79,10 @@ public class PlayerInputController : MonoBehaviour // handles inputs
     public void ConsumeJumpPressed() // ensure that the player needs to press jump again
     {
         JumpPressed = false;
+    }
+
+    private void OnControllsChange(InputSystem_Actions actions)
+    {
+
     }
 }
