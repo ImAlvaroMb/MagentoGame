@@ -799,8 +799,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoConstructOnAwake: 1
   _autoInitializeOnStart: 1
-  _isAttractToggleModeOn: 0
-  _isRepulseToggleModeOn: 0
 --- !u!50 &527690933
 Rigidbody2D:
   serializedVersion: 5
@@ -1061,6 +1059,7 @@ GameObject:
   - component: {fileID: 830751179}
   - component: {fileID: 830751181}
   - component: {fileID: 830751180}
+  - component: {fileID: 830751182}
   m_Layer: 5
   m_Name: PAUSETESTINGSCREEN
   m_TagString: Untagged
@@ -1127,6 +1126,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830751178}
   m_CullTransparentMesh: 1
+--- !u!114 &830751182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830751178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18516428f614dbc4f90c5d4ac17cdb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttractToggle: {fileID: 181432603}
+  RepulseToggle: {fileID: 308877040}
 --- !u!1001 &1062769548
 PrefabInstance:
   m_ObjectHideFlags: 0

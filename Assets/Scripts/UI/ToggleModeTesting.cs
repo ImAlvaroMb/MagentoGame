@@ -11,14 +11,29 @@ public class ToggleModeTesting : MonoBehaviour
     void Start()
     {
         _playerInputController = PlayerInputController.Instance;
-        AttractToggle.enabled = _playerInputController.IsAttractToggleModeOn;
-        RepulseToggle.enabled = _playerInputController.IsRepulseToggleModeOn;
+        AttractToggle.isOn = _playerInputController.IsAttractToggleModeOn;
+        RepulseToggle.isOn = _playerInputController.IsRepulseToggleModeOn;
+
+        AttractToggle.onValueChanged.AddListener(ChangeAttractToggleMode);
+        RepulseToggle.onValueChanged.AddListener(ChangeRepulseToggleMode);
     }
 
-    public void ChangeAttractToggleMode()
+    private void OnEnable()
     {
-
+        _playerInputController = PlayerInputController.Instance;
+        AttractToggle.isOn = _playerInputController.IsAttractToggleModeOn;
+        RepulseToggle.isOn = _playerInputController.IsRepulseToggleModeOn;
     }
 
-    
+    public void ChangeAttractToggleMode(bool isToggleOn)
+    {
+        _playerInputController.ChangeAttractMode(isToggleOn);
+    }
+
+    public void ChangeRepulseToggleMode(bool isToggleOn)
+    {
+        _playerInputController.ChangeRepulseMode(isToggleOn);
+    }
+
+
 }
