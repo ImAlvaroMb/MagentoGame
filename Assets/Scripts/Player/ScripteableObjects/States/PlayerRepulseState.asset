@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f428fd89e12feb64bbdcbb7701445a52, type: 3}
+  m_Name: PlayerRepulseState
+  m_EditorClassIdentifier: 
+  possibleTransitions:
+  - deciosionToBeMade: {fileID: 11400000, guid: ae90c6fd745a9a84dada48770bb3976f, type: 2}
+    onDecisionTrueExitState: {fileID: 0}
+    onDecisionFalseExitState: {fileID: 11400000, guid: f21bef56763066645bfe8c7ebbe89ab0, type: 2}
+  BlockControlEntryThreshold: 0
+  BlockControlExitThreshold: 0

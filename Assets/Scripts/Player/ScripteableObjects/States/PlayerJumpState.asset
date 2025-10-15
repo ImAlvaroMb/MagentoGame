@@ -19,5 +19,11 @@ MonoBehaviour:
   - deciosionToBeMade: {fileID: 11400000, guid: 4ecb92e5258ca0548baa85fafa2fa210, type: 2}
     onDecisionTrueExitState: {fileID: 11400000, guid: bf0f6714d8afcad4abc8c7e37f7b4ad3, type: 2}
     onDecisionFalseExitState: {fileID: 0}
+  - deciosionToBeMade: {fileID: 11400000, guid: ae90c6fd745a9a84dada48770bb3976f, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: c3cd8ea32c059e04b8ad5e3aefbe7384, type: 2}
+    onDecisionFalseExitState: {fileID: 0}
+  - deciosionToBeMade: {fileID: 11400000, guid: cd0479a2efdb86f45b403f0e34cc1b59, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: 49e2e6ad054a9774a9b98e82f6fea9f1, type: 2}
+    onDecisionFalseExitState: {fileID: 0}
   BlockControlEntryThreshold: 0
   BlockControlExitThreshold: 0

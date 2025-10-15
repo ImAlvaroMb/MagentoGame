@@ -107,10 +107,10 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
 
     private void HandleAttractInput(InputAction.CallbackContext context)
     {
-        if(_isAttractToggleModeOn)
+        if(!_isAttractToggleModeOn)
         {
             AttractPressed = context.performed;
-            if (AttractPressed) RepulsePressed = false;
+            //if (AttractPressed) RepulsePressed = false;
         } else
         {
             AttractPressed = !AttractPressed;
@@ -119,19 +119,49 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
 
     private void HandleRepulseInput(InputAction.CallbackContext context)
     {
-        if(_isRepulseToggleModeOn)
+        if(!_isRepulseToggleModeOn)
         {
             RepulsePressed = context.performed;
-            if (RepulsePressed) AttractPressed = false;
+            //if (RepulsePressed) AttractPressed = false;
         } else
         {
-            RepulsePressed = !RepulsePressed;
+            if(RepulsePressed == true)
+            {
+                RepulsePressed = false;
+            } else
+            {
+                RepulsePressed = true;
+            }
+
+            
         }
     }
 
-    public void ChangeAttractMode(bool value) => _isAttractToggleModeOn = value;
+    public void ChangeAttractMode(bool value)
+    {
+        if(value)
+        {
+            _actions.Player.Attract.canceled -= HandleAttractInput;
+        } else
+        {
+            _actions.Player.Attract.canceled += HandleAttractInput;
+        }
 
-    public void ChangeRepulseMode(bool value) => _isRepulseToggleModeOn = value;
+        _isAttractToggleModeOn = value;
+    } 
+
+    public void ChangeRepulseMode(bool value)
+    {
+        if(value)
+        {
+            _actions.Player.Repulse.canceled -= HandleRepulseInput;
+        } else
+        {
+            _actions.Player.Repulse.canceled += HandleRepulseInput;
+        }
+        
+        _isRepulseToggleModeOn = value;
+    }  
 
     private void CheckForInputDeviceChange()
     {

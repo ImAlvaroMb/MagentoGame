@@ -1,16 +1,31 @@
 using UnityEngine;
-
-public class PlayerRepulseState : MonoBehaviour
+namespace StateMachine
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [CreateAssetMenu(menuName ="States/Player/RepulseState")]
+    public class PlayerRepulseState : PlayerMoveState
     {
-        
-    }
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            Debug.Log("Entered Repulse State");
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void OnExit()
+        {
+            base.OnExit();
+            Debug.Log("Exit Repulse State");
+
+        }
+
+        public override void FixedUpdateState()
+        {
+            base.FixedUpdateState();
+        }
+
+        public override void UpdateState()
+        {
+
+        }
     }
 }
+
