@@ -34,8 +34,10 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
     public bool RepulsePressed { get; private set; }
     public bool RepulseHold { get; private set; }
 
-    [SerializeField] private bool _isAttractToggleModeOn = false;
-    [SerializeField] private bool _isRepulseToggleModeOn = false;
+    public bool IsAttractToggleModeOn => _isAttractToggleModeOn;
+    private bool _isAttractToggleModeOn = false;
+    public bool IsRepulseToggleModeOn => _isRepulseToggleModeOn;
+    private bool _isRepulseToggleModeOn = false;
     
 
     protected override void Awake()
@@ -51,6 +53,12 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
 
         _actions.Player.Dash.performed += ctx => DashPressed = true;
         _actions.Player.Dash.canceled += ctx => DashPressed = false;
+
+        _actions.Player.Attract.performed += HandleAttractInput;
+        _actions.Player.Attract.canceled += HandleAttractInput;
+
+        _actions.Player.Repulse.performed += HandleRepulseInput;
+        _actions.Player.Repulse.canceled += HandleRepulseInput;
 
         _actions.Player.Pause.performed += PauseManager.Instance.HandlePausePressed;
     }
@@ -96,6 +104,34 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
     {
         JumpPressed = false;
     }
+
+    private void HandleAttractInput(InputAction.CallbackContext context)
+    {
+        if(_isAttractToggleModeOn)
+        {
+            AttractPressed = context.performed;
+            if (AttractPressed) RepulsePressed = false;
+        } else
+        {
+            AttractPressed = !AttractPressed;
+        }
+    }
+
+    private void HandleRepulseInput(InputAction.CallbackContext context)
+    {
+        if(_isRepulseToggleModeOn)
+        {
+            RepulsePressed = context.performed;
+            if (RepulsePressed) AttractPressed = false;
+        } else
+        {
+            RepulsePressed = !RepulsePressed;
+        }
+    }
+
+    public void ChangeAttractMode(bool value) => _isAttractToggleModeOn = value;
+
+    public void ChangeRepulseMode(bool value) => _isRepulseToggleModeOn = value;
 
     private void CheckForInputDeviceChange()
     {
