@@ -1,9 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Enums;
+using System.Linq;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.XInput;
+using Utilities;
 
-public class PlayerInputController : MonoBehaviour // handles inputs
+public class PlayerInputController : AbstractSingleton<PlayerInputController> // handles inputs
 {
+    public delegate void InputDeviceChanged(InputDeviceType deviceType);
+    public static event InputDeviceChanged OnInputDeviceChanged;
 
     private InputDeviceType _currentInputDeviceType = InputDeviceType.KEYBOARD_MOUSE;
     public InputSystem_Actions Actions => _actions;
@@ -21,9 +28,17 @@ public class PlayerInputController : MonoBehaviour // handles inputs
     
     private float jumpStartTime;
     public bool DashPressed { get; private set; }
+
+    public bool AttractPressed { get; private set; }
+    public bool AttractHold { get; private set; }
+    public bool RepulsePressed { get; private set; }
+    public bool RepulseHold { get; private set; }
+
+    [SerializeField] private bool _isAttractToggleModeOn = false;
+    [SerializeField] private bool _isRepulseToggleModeOn = false;
     
 
-    private void Awake()
+    protected override void Awake()
     {
         _actions = new InputSystem_Actions();
         _actions.Enable();
@@ -52,6 +67,7 @@ public class PlayerInputController : MonoBehaviour // handles inputs
 
     private void Update()
     {
+        CheckForInputDeviceChange();
         if(JumpHold) JumpHoldTime = Time.time - jumpStartTime;
     }
 
@@ -81,8 +97,31 @@ public class PlayerInputController : MonoBehaviour // handles inputs
         JumpPressed = false;
     }
 
-    private void OnControllsChange(InputSystem_Actions actions)
+    private void CheckForInputDeviceChange()
     {
+        if(Keyboard.current != null && Keyboard.current.anyKey.isPressed)
+        {
+            _currentInputDeviceType = InputDeviceType.KEYBOARD_MOUSE;
+            _isUsingController = false;
+            OnInputDeviceChanged?.Invoke(_currentInputDeviceType);
+        }
 
+        bool gamepadUsed = false;
+        if(Gamepad.current != null)
+        {
+            gamepadUsed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
+        }
+
+        if(gamepadUsed)
+        {
+            if(Gamepad.current is DualShockGamepad) _currentInputDeviceType = InputDeviceType.PS_CONTROLLER;
+
+            if(Gamepad.current is XInputController) _currentInputDeviceType = InputDeviceType.XBOX_CONTROLLER;
+
+            OnInputDeviceChanged?.Invoke(_currentInputDeviceType);
+            _isUsingController = true;
+        }
     }
+
+    public InputDeviceType GetCurrentInputDeviceType() => _currentInputDeviceType;
 }
