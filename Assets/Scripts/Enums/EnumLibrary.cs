@@ -20,5 +20,11 @@ namespace Enums
         PS_CONTROLLER,
         XBOX_CONTROLLER
     }
+
+    public enum MagnetismForceMode
+    {
+        REPULSE,
+        ATTRACT
+    }
 }
 

@@ -8,13 +8,13 @@ namespace StateMachine
         public override void OnEnter()
         {
             base.OnEnter();
-            Debug.Log("Entered Attract State");
+            
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("Exit Attract State");
+            inputController.EnsureAttractIsOff();
             
         }
 
@@ -25,7 +25,7 @@ namespace StateMachine
 
         public override void UpdateState()
         {
-
+            magnetFieldController.UpdateAimDirection(inputController.LookInput, inputController.IsUsingController);
         }
     }
 

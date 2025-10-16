@@ -34,6 +34,8 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
     public bool RepulsePressed { get; private set; }
     public bool RepulseHold { get; private set; }
 
+    public Vector2 LookInput { get; private set; }
+
     public bool IsAttractToggleModeOn => _isAttractToggleModeOn;
     private bool _isAttractToggleModeOn = false;
     public bool IsRepulseToggleModeOn => _isRepulseToggleModeOn;
@@ -60,6 +62,9 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
         _actions.Player.Repulse.performed += HandleRepulseInput;
         _actions.Player.Repulse.canceled += HandleRepulseInput;
 
+        _actions.Player.Look.performed += OnLookPerformed;
+        _actions.Player.Look.canceled += OnLookPerformed;
+
         _actions.Player.Pause.performed += PauseManager.Instance.HandlePausePressed;
     }
 
@@ -77,6 +82,11 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
     {
         CheckForInputDeviceChange();
         if(JumpHold) JumpHoldTime = Time.time - jumpStartTime;
+    }
+
+    private void OnLookPerformed(InputAction.CallbackContext context)
+    {
+        LookInput = context.ReadValue<Vector2>();
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -162,6 +172,16 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
         
         _isRepulseToggleModeOn = value;
     }  
+
+    public void EnsureAttractIsOff()
+    {
+        AttractPressed = false;
+    }
+
+    public void EnsureRepulseIsOff()
+    {
+        RepulsePressed = false;
+    }
 
     private void CheckForInputDeviceChange()
     {

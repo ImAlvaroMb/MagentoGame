@@ -8,6 +8,7 @@ public class MovementBehaviour : MonoBehaviour, IPausable
 
     private Rigidbody2D _rb;
     private Vector2 _frameVelocity;
+    private Vector2 _externalForce = Vector2.zero;
     private bool _isPaused = false;
 
     [HideInInspector] public bool Grounded = false;
@@ -123,6 +124,8 @@ public class MovementBehaviour : MonoBehaviour, IPausable
     private void ApplyMovement()
     {
         _rb.linearVelocity = _frameVelocity;
+
+        //in the furute here ill need to aply / handle the external forces calculated when using the attract or repulse mode
     }
 
     

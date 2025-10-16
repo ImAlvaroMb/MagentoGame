@@ -7,24 +7,25 @@ namespace StateMachine
         public override void OnEnter()
         {
             base.OnEnter();
-            Debug.Log("Entered Repulse State");
+            
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("Exit Repulse State");
+            inputController.EnsureRepulseIsOff();
 
         }
 
         public override void FixedUpdateState()
         {
             base.FixedUpdateState();
+
         }
 
         public override void UpdateState()
         {
-
+            magnetFieldController.UpdateAimDirection(inputController.LookInput, inputController.IsUsingController);
         }
     }
 }
