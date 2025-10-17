@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5451350ce6fc53f42960f1e715dbbb25, type: 3}
-  m_Name: PlayerAttractState
+  m_Script: {fileID: 11500000, guid: 62a31955b2a25c34fbc3cc5f0cf6fc7a, type: 3}
+  m_Name: PlayerMagnetOffState
   m_EditorClassIdentifier: 
   possibleTransitions:
   - deciosionToBeMade: {fileID: 11400000, guid: cd0479a2efdb86f45b403f0e34cc1b59, type: 2}
-    onDecisionTrueExitState: {fileID: 0}
-    onDecisionFalseExitState: {fileID: 11400000, guid: 41b659a044bb2d743a96e61e0cdb80c8, type: 2}
+    onDecisionTrueExitState: {fileID: 11400000, guid: 49e2e6ad054a9774a9b98e82f6fea9f1, type: 2}
+    onDecisionFalseExitState: {fileID: 0}
   - deciosionToBeMade: {fileID: 11400000, guid: ae90c6fd745a9a84dada48770bb3976f, type: 2}
     onDecisionTrueExitState: {fileID: 11400000, guid: c3cd8ea32c059e04b8ad5e3aefbe7384, type: 2}
     onDecisionFalseExitState: {fileID: 0}
