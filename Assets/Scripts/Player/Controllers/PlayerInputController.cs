@@ -62,8 +62,8 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
         _actions.Player.Repulse.performed += HandleRepulseInput;
         _actions.Player.Repulse.canceled += HandleRepulseInput;
 
-        _actions.Player.Look.performed += OnLookPerformed;
-        _actions.Player.Look.canceled += OnLookPerformed;
+        //_actions.Player.Look.performed += OnLookPerformed;
+        //_actions.Player.Look.canceled += OnLookPerformed;
 
         _actions.Player.Pause.performed += PauseManager.Instance.HandlePausePressed;
     }
@@ -81,6 +81,7 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
     private void Update()
     {
         CheckForInputDeviceChange();
+        ReadLookInput();
         if(JumpHold) JumpHoldTime = Time.time - jumpStartTime;
     }
 
@@ -92,7 +93,6 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
         MoveInput = context.ReadValue<Vector2>();
-        Debug.Log(MoveInput);
     }
 
     private void OnJumpPermormed(InputAction.CallbackContext context)
@@ -101,7 +101,6 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
         JumpHold = true;
         jumpStartTime = Time.time;
         JumpHoldTime = 0f;
-        Debug.Log("JumpPressed");
     }
 
     private void OnJumpCanceled(InputAction.CallbackContext context)
@@ -183,30 +182,49 @@ public class PlayerInputController : AbstractSingleton<PlayerInputController> //
         RepulsePressed = false;
     }
 
+    private void ReadLookInput()
+    {
+        Vector2 newValue = Vector2.zero;
+
+        if(_isUsingController)
+        {
+            newValue = Gamepad.current.rightStick.ReadValue(); //_actions.Player.Look.ReadValue<Vector2>(); PROVISIOONAL FIX, THIS BUG SHOULDNT HAPPEN IN BUILD SINCE EDITOR GHOST MOIUSE INPUT DOESNT HAPPEN
+        } else
+        {
+            newValue = _actions.Player.Look.ReadValue<Vector2>();
+        }
+
+        LookInput = newValue;
+    }
+
     private void CheckForInputDeviceChange()
     {
-        if(Keyboard.current != null && Keyboard.current.anyKey.isPressed)
+
+        bool gamepadUsed = false;
+        if (Gamepad.current != null)
+        {
+            gamepadUsed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
+        }
+
+        if (gamepadUsed)
+        {
+            if (Gamepad.current is DualShockGamepad) _currentInputDeviceType = InputDeviceType.PS_CONTROLLER;
+
+            if (Gamepad.current is XInputController) _currentInputDeviceType = InputDeviceType.XBOX_CONTROLLER;
+
+            OnInputDeviceChanged?.Invoke(_currentInputDeviceType);
+            _isUsingController = true;
+            return;
+        }
+
+        if (Keyboard.current != null && Keyboard.current.anyKey.isPressed)
         {
             _currentInputDeviceType = InputDeviceType.KEYBOARD_MOUSE;
             _isUsingController = false;
             OnInputDeviceChanged?.Invoke(_currentInputDeviceType);
         }
 
-        bool gamepadUsed = false;
-        if(Gamepad.current != null)
-        {
-            gamepadUsed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
-        }
-
-        if(gamepadUsed)
-        {
-            if(Gamepad.current is DualShockGamepad) _currentInputDeviceType = InputDeviceType.PS_CONTROLLER;
-
-            if(Gamepad.current is XInputController) _currentInputDeviceType = InputDeviceType.XBOX_CONTROLLER;
-
-            OnInputDeviceChanged?.Invoke(_currentInputDeviceType);
-            _isUsingController = true;
-        }
+       
     }
 
     public InputDeviceType GetCurrentInputDeviceType() => _currentInputDeviceType;

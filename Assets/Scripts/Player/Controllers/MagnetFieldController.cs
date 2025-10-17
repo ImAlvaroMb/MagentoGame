@@ -26,23 +26,53 @@ public class MagnetFieldController : MonoBehaviour
 
     public void UpdateAimDirection(Vector2 aimInput, bool isUsingController)
     {
-        Debug.Log(aimInput);
+        Debug.Log(aimInput + "  "  + isUsingController);
 
         if(isUsingController)
         {
             if(aimInput.sqrMagnitude > aimJoystickThreshold)
             {
                 _aimDirection = aimInput.normalized;
+
+                Debug.DrawLine(transform.position, transform.position + (Vector3)_aimDirection * 15f, Color.red);
             }
         } else
         {
             if(Camera.main != null)
             {
-                Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(aimInput);
-                _aimDirection = ((Vector2) mouseWorldPosition - (Vector2)transform.position).normalized;
+
+                Plane aimingPlane = new Plane(Vector3.back, transform.position); //generate a plane on the player position aiming at the camera (z axis)
+                Ray ray = Camera.main.ScreenPointToRay(aimInput);
+                float hitDistance;
+                if(aimingPlane.Raycast(ray, out hitDistance))
+                {
+                    Vector3 mouseWorldPosition = ray.GetPoint(hitDistance);
+                    _aimDirection = ((Vector2)mouseWorldPosition - (Vector2)transform.position).normalized;
+
+                    Debug.DrawLine(transform.position, transform.position + (Vector3)_aimDirection * 15f, Color.green);
+                }
+                
             }
         }
+    }
 
-        Debug.DrawLine(transform.position, transform.position + (Vector3)_aimDirection * 5f);
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        MagnetObject magnetObject = collision.GetComponent<MagnetObject>();
+        if(magnetObject != null && !_nearbyObjects.Contains(magnetObject))
+        {
+            _nearbyObjects.Add(magnetObject);
+            Debug.Log($"Object: {magnetObject.name} is now added to nearbyObjects");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        MagnetObject magnetObject = collision.GetComponent<MagnetObject>();
+        if(magnetObject != null)
+        {
+            _nearbyObjects.Remove(magnetObject);
+            Debug.Log($"Object: {magnetObject.name} is now deleted from nearbyObjects");
+        }
     }
 }

@@ -238,10 +238,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
-                    ""path"": ""<Pointer>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -271,7 +271,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8cbb2f4b-a784-49cc-8d5e-c010b8c7f4e6"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
