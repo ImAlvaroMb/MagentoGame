@@ -26,5 +26,12 @@ namespace Enums
         REPULSE,
         ATTRACT
     }
+
+    public enum MagnetObjectType
+    {
+        STATIC_WITH_FORCE,
+        NON_STATIC_WITH_FORCE,
+        NON_STATIC_WITHOUT_FORCE
+    }
 }
 
