@@ -8,7 +8,7 @@ namespace StateMachine
         public override void OnEnter()
         {
             base.OnEnter();
-            
+            magnetFieldController.ChangeMagnetMode(MagnetismForceMode.ATTRACT);
         }
 
         public override void OnExit()
@@ -26,6 +26,7 @@ namespace StateMachine
         public override void UpdateState()
         {
             magnetFieldController.UpdateAimDirection(inputController.LookInput, inputController.IsUsingController);
+            magnetFieldController.CalculateForcesToBeApplied();
         }
     }
 

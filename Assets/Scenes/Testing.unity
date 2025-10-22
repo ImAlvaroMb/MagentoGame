@@ -997,8 +997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3af9307a08efa04d864f0faeea1bd05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMagenticForce: 100
-  maxEffectRange: 5
+  baseMagenticForce: 300
+  maxEffectRange: 15
   aimConeAngle: 30
   aimJoystickThreshold: 0.1
   distanceFalloff:
@@ -1250,10 +1250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83030ddffcb55b344b006430abc62a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMagneticForce: 50
+  maxMagneticForce: 300
   attractionMultiplier: 1
   repulsionMultiplier: 1
-  isStatic: 1
+  objectType: 0
   magnetismMode: 1
 --- !u!212 &572675393
 SpriteRenderer:

@@ -13,6 +13,7 @@ public class MagnetFieldController : MonoBehaviour
     [SerializeField] private AnimationCurve distanceFalloff = AnimationCurve.Linear(0f,1f,5f,0f);
 
     [SerializeField] private Collider2D detectionCollider;
+    private Rigidbody2D _rb;
 
     private MagnetismForceMode _magnetismForceMode;
 
@@ -22,11 +23,12 @@ public class MagnetFieldController : MonoBehaviour
     private void Awake()
     {
         if (detectionCollider == null) Debug.LogError("Detection collider not assigned on" + this.name);
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     public void UpdateAimDirection(Vector2 aimInput, bool isUsingController)
     {
-        Debug.Log(aimInput + "  "  + isUsingController);
+        //Debug.Log(aimInput + "  "  + isUsingController);
 
         if(isUsingController)
         {
@@ -76,6 +78,7 @@ public class MagnetFieldController : MonoBehaviour
 
             Vector2 vectorPlayerToTarget = targetBody.transform.position - transform.position;
             float distance = vectorPlayerToTarget.magnitude;
+            Debug.DrawLine(targetBody.transform.position, vectorPlayerToTarget * 5f, Color.red);
             if (distance > maxEffectRange || distance <= 0.01f) continue;
 
             float aimFactor = GetAimFactor(vectorPlayerToTarget);
@@ -93,7 +96,8 @@ public class MagnetFieldController : MonoBehaviour
                     if(forceMagnitudeIn > 0.01f) // small threshold needs to be added
                     {
                         Vector2 directionIn = (targetBody.MagnetismMode == MagnetismForceMode.ATTRACT) ? vectorPlayerToTarget.normalized : -vectorPlayerToTarget.normalized;
-                        totalForceOnPlayer += directionIn * forceMagnitudeIn;
+
+                        totalForceOnPlayer += (directionIn * forceMagnitudeIn) + (playerMagnetForce * Vector2.one);
                     }
 
                     break;
@@ -114,6 +118,10 @@ public class MagnetFieldController : MonoBehaviour
                     break;
             }
         }
+        Debug.Log(totalForceOnPlayer.magnitude);
+        Debug.DrawLine(transform.position, totalForceOnPlayer * 5f, Color.cyan);
+
+        _rb.AddForce(totalForceOnPlayer, ForceMode2D.Force);
     }
 
     private float GetAimFactor(Vector2 vectorPlayerToTarget) //the closer the return value is to 1 the close it is aiming to the center of that object
