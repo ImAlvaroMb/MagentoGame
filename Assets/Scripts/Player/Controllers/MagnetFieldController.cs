@@ -20,10 +20,13 @@ public class MagnetFieldController : MonoBehaviour
     private List<MagnetObject> _nearbyObjects = new List<MagnetObject>();
     private Vector2 _aimDirection = Vector2.right;
 
+    private MovementBehaviour _movementBehaviour;
+
     private void Awake()
     {
         if (detectionCollider == null) Debug.LogError("Detection collider not assigned on" + this.name);
         _rb = GetComponent<Rigidbody2D>();
+        _movementBehaviour = GetComponent<MovementBehaviour>();
     }
 
     public void UpdateAimDirection(Vector2 aimInput, bool isUsingController)
@@ -144,6 +147,13 @@ public class MagnetFieldController : MonoBehaviour
         Debug.DrawLine(transform.position, totalForceOnPlayer * 5f, Color.cyan);
 
         _rb.AddForce(totalForceOnPlayer, ForceMode2D.Force);
+        if(Mathf.Abs(totalForceOnPlayer.magnitude) > 0.5f)
+        {
+            _movementBehaviour.NotifyIsOnMagnetismMode(true);
+        } else
+        {
+            _movementBehaviour.NotifyIsOnMagnetismMode(false);
+        }
     }
 
     private float GetAimFactor(Vector2 vectorPlayerToTarget) //the closer the return value is to 1 the close it is aiming to the center of that object

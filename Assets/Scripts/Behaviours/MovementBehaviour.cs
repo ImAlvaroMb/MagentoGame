@@ -15,6 +15,8 @@ public class MovementBehaviour : MonoBehaviour, IPausable
     [HideInInspector] public bool EndedJumpEarly = false;
     [HideInInspector] public float TimeLeftGrounded = float.MinValue;
 
+    private bool _isOnMagneticMode = false;
+
     public bool CanDash => _canDash;
     private bool _canDash = true;
     public bool IsDashing => _isDashing;
@@ -74,6 +76,7 @@ public class MovementBehaviour : MonoBehaviour, IPausable
 
     public void HandleGravity(float fallAcceleration, float maxFallSpeed, float groundingForce, float jumpEndEarlyGravityModifier)
     {
+        if (_isOnMagneticMode) return;
         if(Grounded && _frameVelocity.y <= 0)
         {
             //_frameVelocity.y = groundingForce;
@@ -128,5 +131,6 @@ public class MovementBehaviour : MonoBehaviour, IPausable
         //in the furute here ill need to aply / handle the external forces calculated when using the attract or repulse mode
     }
 
+    public void NotifyIsOnMagnetismMode(bool value) { _isOnMagneticMode = value; }
     
 }
